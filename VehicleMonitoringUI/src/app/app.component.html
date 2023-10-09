@@ -1,0 +1,102 @@
+<app-modal [showModal]="showErrorModal" [errorMessage]="errorModalMessage"></app-modal>
+
+
+<div class="header" role="banner">
+  <app-header></app-header>
+</div>
+
+<div class="notification-toast" [ngClass]="{ 'show': isNotificationVisible }">
+  <span class="message">{{ notificationMessage }}</span>
+  <button class="close-btn" (click)="closeNotification()">Close</button>
+</div>
+
+<div class="content" role="main">
+  <div class="container">
+
+    <div class="card-container" style="width: 100%;">
+      <h6 class="heading">Vehicle List</h6>
+      <div class="card" style="width: 100%; overflow-y: scroll;">
+        <div class="row-container" *ngIf="vehicleList.length > 0">
+          <div class="row" *ngFor="let vehicle of vehicleList ;">
+            <span>
+              <div class="status-dot"
+                [ngClass]="{ 'status-connected': vehicle.status === 'Connected', 'status-disconnected': vehicle.status === 'Disconnected' }">
+              </div>
+              {{vehicle.vin}} - {{vehicle.registrationNumber}}
+            </span>
+          </div>
+        </div>
+        <div class="row-container" *ngIf="vehicleList.length <= 0">
+
+          <span>
+            No data available.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="card-container" style="width: 100%;">
+      <h6 class="heading">Filter Vehicles By Customer</h6>
+      <div class="card" style="width: 100%; overflow-y: scroll;">
+        <div class="row-container">
+          <span><b>Select a customer</b></span>
+          <div class="custom-dropdown">
+            <select #selection (change)="onCustomerSelectionChange(selection.value)">
+              <option>---Select---</option>
+              <option *ngFor="let customer of customerList" value={{customer.id}}>{{customer.name}}</option>
+            </select>
+            <div class="arrow-down"></div>
+          </div>
+
+          <div class="row-container">
+            <div class="row" *ngFor="let vehicle of filteredVehiclesByCustomer ;">
+              <span>
+                <div class="status-dot"
+                  [ngClass]="{ 'status-connected': vehicle.status === 'Connected', 'status-disconnected': vehicle.status === 'Disconnected' }">
+                </div>
+                {{vehicle.vin}} - {{vehicle.registrationNumber}}
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-container" style="width: 100%;">
+      <h6 class="heading">Filter Vehicles By Status</h6>
+      <div class="card" style="width: 100%; overflow-y: scroll;">
+        <div class="row-container">
+          <span><b>Select a status</b></span>
+          <div class="custom-dropdown">
+            <select #statusSelection (change)="onStatusSelectionChange(statusSelection.value)">
+              <option>---Select---</option>
+              <option value="connected">Connected</option>
+              <option value="disconnected">Disonnected</option>
+            </select>
+            <div class="arrow-down"></div>
+          </div>
+
+          <div class="row-container">
+            <div class="row" *ngFor="let vehicle of filteredVehiclesByStatus ;">
+              <span>
+                <div class="status-dot"
+                  [ngClass]="{ 'status-connected': vehicle.status === 'Connected', 'status-disconnected': vehicle.status === 'Disconnected' }">
+                </div>
+                {{vehicle.vin}} - {{vehicle.registrationNumber}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoading" class="loader"></div>
+<footer class="footer" role="banner">
+  <app-footer></app-footer>
+</footer>
+<router-outlet></router-outlet>

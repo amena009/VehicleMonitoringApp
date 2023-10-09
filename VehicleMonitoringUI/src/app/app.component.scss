@@ -1,0 +1,264 @@
+$primary-color: rgb(83, 81, 81);
+$secondary-color: #333;
+$highlight-color: rgb(105, 103, 103);
+$card-bg-color: #fafafa;
+
+.container {
+  display: flex; /* Display the card-containers in a row */
+}
+
+.row {
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  color: #{$secondary-color};
+  height: 28px;
+  align-content: center;
+}
+
+.row-container {
+  height: 270px;
+  width: 100%; /* Occupy full width of the card */
+  margin-top: 10px
+}
+
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #{$secondary-color};
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.heading {
+  text-align: center; /*heading in center */
+  margin-bottom: 10px; /* Adding space between the heading and form */
+  font-size: 20px;
+  color: #{$secondary-color};
+  padding-left: 15px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.status-connected {
+  background-color: green;
+}
+
+.status-disconnected {
+  background-color: red;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+
+  select {
+    appearance: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    width: 250px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .arrow-down {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent; 
+    border-right: 5px solid transparent; 
+    border-top: 5px solid #000; 
+  }
+}
+
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #{$secondary-color};
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  background-color: #{$primary-color};
+  color: white;
+  padding-left: 30px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.content {
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 16px;
+
+  & + & {
+    border-left: 2px solid #ddd; /* Add a border to the right of the first card-container */
+    padding-left: 16px;
+    margin-left: 16px;
+  }
+
+  .card {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #{$card-bg-color};
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+
+    &.highlight-card {
+      span {
+        margin-left: 72px;
+      }
+    }
+
+    &:not(.highlight-card):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    }
+
+    &:not(.highlight-card):hover .material-icons path {
+      fill: #{$highlight-color};
+    }
+  }
+
+  a:hover {
+    color: #{$secondary-color};
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #{$primary-color};
+  color: white;
+  font-weight: 600;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  line-height: 20px;
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.notification-toast {
+    position: fixed;
+    top: 0;
+    float: right;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(76, 175, 80, 0.85);
+    color: #fff;
+    padding: 10px 20px;
+    display: none;
+    z-index: 1000;
+    border: 3px;
+    animation: slideIn 0.5s ease-in-out, fadeOut 0.5s 4.5s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    0%, 100% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+  }
+  
+  .notification-toast.show {
+    display: block;
+    margin-top: 15px;
+  }
+  
+  .message {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .close-btn {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 16px;
+  }
